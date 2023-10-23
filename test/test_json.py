@@ -49,3 +49,27 @@ def test_detail_json_is_dumped():
 
     # check that a file exists with the hash id extracted above
     assert id in file
+
+def test_graph_json_is_dumped():
+
+    # test file path for json details
+    json_path = "data/test_json_dump/graphs/"
+    raw_json = get_data_details()
+
+    id_length = 4
+
+    # create filename and fetch id 
+    filename,id = create_filename(json_path,id_length)
+
+    # dump json file
+    dump_json(raw_json,filename)
+
+    filepath = os.listdir(json_path)
+
+    for f in filepath:
+        if id in f:
+            file = f
+            break
+
+    # check that a file exists with the hash id extracted above
+    assert id in file
