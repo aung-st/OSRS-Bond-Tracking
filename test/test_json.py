@@ -5,8 +5,17 @@ import os
 def test_id_is_created():
 
     # generate random id
-    id = create_id(3)
+    id = create_id(4)
     assert isinstance(id,str) and len(id) == 40
+
+def test_details_filename_is_created():
+
+    json_path = "data/test_json_dump/details"
+    id_length = 4
+
+    filename,id = create_filename(json_path,id_length)
+    
+    assert isinstance(create_filename(json_path,id_length),tuple) and isinstance(filename,str) and isinstance(id,str)
 
 def test_detail_json_is_dumped():
 
