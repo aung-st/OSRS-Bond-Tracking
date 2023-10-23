@@ -1,10 +1,24 @@
-import json
+from json import dump
 import hashlib
 import os 
 import datetime
 
-def dump_json():
-    pass
+def dump_json(
+    raw_json:str,
+    filename:str
+) -> None:
+    """
+    Save a raw json file as the specified filename in the function arguement. It will save into a directory which is already attached in the filename arguement.
+
+    Parameters:
+    raw_json (dict): A raw json file fetched from the API call in fetch_data.py
+    filename (str): A filename with a path attached generated from the create_filename function
+    """
+
+    # dump the data to the file, ensuring non-ASCII characters are preserved
+    with open(filename, 'w') as f:
+        dump(raw_json, f, ensure_ascii=False)
+    f.close()
 
 def create_filename(
     path:str,
