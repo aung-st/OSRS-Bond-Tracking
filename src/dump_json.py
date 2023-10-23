@@ -62,7 +62,6 @@ def create_filename(
     return filename,hash_id
 
 def create_id(length:str) -> str:
-    
     """
     Create a hash id by encoding a string of random bytes of size length.
 
