@@ -17,6 +17,15 @@ def test_details_filename_is_created():
     
     assert isinstance(create_filename(json_path,id_length),tuple) and isinstance(filename,str) and isinstance(id,str)
 
+def test_graphs_filename_is_created():
+
+    json_path = "data/test_json_dump/graphs"
+    id_length = 4
+
+    filename,id = create_filename(json_path,id_length)
+    
+    assert isinstance(create_filename(json_path,id_length),tuple) and isinstance(filename,str) and isinstance(id,str)
+
 def test_detail_json_is_dumped():
 
     # test file path for json details
