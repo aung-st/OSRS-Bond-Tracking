@@ -27,7 +27,11 @@ def create_database(name:str) -> None:
     connection.cursor().execute(f"CREATE database IF NOT EXISTS {name}")
     print("Execution Successful")
     
+def create_details_table() -> None:
+    pass
 
+def create_graphs_table() -> None:
+    pass
 
 def list_databases() -> None:
     """
