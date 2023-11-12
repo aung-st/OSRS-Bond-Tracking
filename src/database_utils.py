@@ -27,8 +27,40 @@ def create_database(name:str) -> None:
     connection.cursor().execute(f"CREATE database IF NOT EXISTS {name}")
     print("Execution Successful")
     
-def create_details_table() -> None:
-    pass
+def create_details_table(database: str) -> None:
+    """
+    Creates a table to store information from the json details.
+
+    Parameters:
+    database (str): Name of database where the table is inserted
+    """
+    connection = connect(
+        host="localhost",
+        user="root",
+        password=get_password(),
+        database=database
+        ) 
+
+    connection.cursor().execute(f"""
+                                CREATE TABLE IF NOT EXISTS details (
+                                uuid varchar(255) PRIMARY KEY,
+                                type varchar(255),
+                                item_id int,
+                                name varchar(255),
+                                description varchar(255),
+                                members varchar(255),
+                                current_trend varchar(255),
+                                current_price varchar(255),
+                                today_trend varchar(255),
+                                today_price varchar(255),
+                                day30_trend varchar(255),
+                                day30_change varchar(255),
+                                day90_trend varchar(255),
+                                day90_change varchar(255),
+                                day180_trend varchar(255),
+                                day180_change varchar(255)
+                                );
+                                """)
 
 def create_graphs_table() -> None:
     pass
