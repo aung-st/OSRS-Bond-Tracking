@@ -32,3 +32,20 @@ def get_data_details() -> dict:
 
   # return response data
   return data
+
+def get_five_minute_average() -> dict:
+  """
+  Get data on price averages and volume of sales of Grand Exchange items in the past 5 minutes of sales.
+  
+  Returns:
+  A dictionary of 5 minute high and low average prices and volumes for all items on the Grand Exchange.
+  """
+  url = "https://prices.runescape.wiki/api/v1/osrs/5m"
+
+  # make the API request
+  response = requests.get(url)
+  data = response.json()
+
+  # return response data
+  return data
+
