@@ -61,6 +61,48 @@ def create_details_table(database: str) -> None:
                                 day180_change varchar(255)
                                 );
                                 """)
+    
+def bulk_add_details(
+    path:str,
+    data:dict,
+    database:str
+) -> None:
+        """
+        Adds entries from a raw json file into the details table of a database in the data/database/ path.
+
+        Parameters:
+        path (str): A path into a database in the data/database/ directory
+        data (dict): A raw json file that is fetched from the API call in get_data.py
+        database (str): Name of database that will be used to insert into the details table
+        """
+        connection = connect(
+        host="localhost",
+        user="root",
+        password=get_password(),
+        database=database
+        ) 
+
+        # sqlite query to be inserted into the execution sequence
+        connection.cursor().executemany(f"""
+            INSERT INTO details(
+            uuid,
+            type,
+            item_id,
+            name,
+            description,
+            members,
+            current_trend,
+            current_price,
+            today_trend,
+            today_price,
+            day30_trend,
+            day30_change,
+            day90_trend,
+            day90_change,
+            day180_trend,
+            day180_change)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ;""")
 
 def create_graphs_table() -> None:
     pass
