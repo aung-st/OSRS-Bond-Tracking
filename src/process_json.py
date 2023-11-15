@@ -15,7 +15,7 @@ def create_detail_key(
     timestamp (str): datetime extraction of json contents in YYMMDDHHmm form
 
     Returns:
-    id+'-'+country (str): A string concatenation to be used as a primary key in a database
+    id+'-'+time_extracted (str): A string concatenation to be used as a primary key in a database
     """
     
     return id+'-'+time_extracted
