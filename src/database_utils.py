@@ -104,8 +104,28 @@ def bulk_add_details(
         
         connection.commit()
 
-def create_graphs_table() -> None:
-    pass
+def create_graphs_table(database:str) -> None:
+    """
+    Creates a table to store information from the json graphs.
+
+    Parameters:
+    database (str): Name of database where the table is inserted
+    """
+    connection = connect(
+        host="localhost",
+        user="root",
+        password=get_password(),
+        database=database
+        ) 
+
+    connection.cursor().execute(f"""
+                                CREATE TABLE IF NOT EXISTS details (
+                                uuid varchar(255) PRIMARY KEY,
+                                timestamp varchar(255),
+                                first_sale_price int,
+                                30_day_average int
+                                );
+                                """)
 
 def list_databases() -> None:
     """
@@ -122,3 +142,5 @@ def list_databases() -> None:
 
     for database in databases:
         print(database) 
+
+
