@@ -81,7 +81,7 @@ def bulk_add_details(
         ) 
 
         # sqlite query to be inserted into the execution sequence
-        connection.cursor().executemany(f"""
+        connection.cursor().execute(f"""
             INSERT INTO details(
             uuid,
             type,
@@ -99,8 +99,10 @@ def bulk_add_details(
             day90_change,
             day180_trend,
             day180_change)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
             ;""",data)
+        
+        connection.commit()
 
 def create_graphs_table() -> None:
     pass
@@ -120,4 +122,3 @@ def list_databases() -> None:
 
     for database in databases:
         print(database) 
-
