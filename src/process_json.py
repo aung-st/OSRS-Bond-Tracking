@@ -111,7 +111,6 @@ def extract_row_tuple_details(
 
 def log_id(
     id:str,
-    index:int
 ) -> None:
    
    """
@@ -119,12 +118,11 @@ def log_id(
 
    Parameters:
    id (str): Hash id of raw json file passed into bulk_process_json
-   index (int): An index to track how many rows have been inserted (1-indexing for convenience)
    """
    
    # keep track of hash id in case of debugging needs
    logging.basicConfig(format="%(asctime)s - %(message)s",level=logging.INFO)
-   logging.info(f'id: {id} inserted into details table on id column |{index}')
+   logging.info(f'id: {id} inserted into details table')
 
 def bulk_process_detail_json(
   database:str,
@@ -144,6 +142,7 @@ def bulk_process_detail_json(
     data = extract_row_tuple_details(raw_json,id)
 
     # add all values of a row into the details table
-    bulk_add_details(database,data)
+    bulk_add_details(data,database)
 
-
+    log_id(data[0])
+      
