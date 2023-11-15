@@ -92,15 +92,15 @@ def extract_row_tuple_details(
     # return extracted keys
     return (
         primary_key,
-        item_id, 
         type, 
+        item_id, 
         name, 
         description, 
+        members, 
         current_trend,
         current_price, 
         today_trend,
         today_price, 
-        members, 
         day30_trend, 
         day30_change, 
         day90_trend, 
