@@ -63,14 +63,14 @@ def create_details_table(database: str) -> None:
                                 """)
     
 def bulk_add_details(
-    data:dict,
+    data:tuple,
     database:str
 ) -> None:
         """
-        Adds entries from a raw json file into the details table of a database in the data/database/ path.
+        Adds entries from a raw json file into the details table of a database specified in the parameters. 
 
         Parameters:
-        data (dict): A raw json file that is fetched from the API call in get_data.py
+        data (tuple): json file content collated into a tuple to be inserted into details table
         database (str): Name of database that will be used to insert into the details table
         """
         connection = connect(
