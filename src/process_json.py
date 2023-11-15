@@ -37,3 +37,99 @@ def create_graph_key(
     """
     
     return id+'-'+timestamp
+
+
+def extract_row_tuple_details(
+    data:dict,
+    id:str
+) -> tuple:
+    """
+    Extract all keys from a single dictionary entry and return it as a 17-tuple.
+
+    Parameters:
+    data (dict): A raw json file
+    id (str): Hash id of raw json file in the first argument
+
+    Returns:
+    (
+        uuid,
+        type,
+        item_id,
+        name,
+        description,
+        members,
+        current_trend,
+        current_price,
+        today_trend,
+        today_price,
+        day30_trend,
+        day30_change,
+        day90_trend,
+        day90_change,
+        day180_trend,
+        day180_change
+    ) (tuple): A 16-tuple to be used in bulk_process_json
+    """
+
+    # extract all keys from 1 dictionary entry
+    print(data)
+    item_id = data['item']['id']
+    type = data['item']['type']
+    name = data['item']['name']
+    description = data['item']['description']
+    current_trend = data['item']['current']['trend']
+    current_price = data['item']['current']['price']
+    today_trend = data['item']['today']['trend']
+    today_price = data['item']['today']['price']
+    members = data['item']['members']
+    day30_trend = data['item']['day30']['trend']
+    day30_change = data['item']['day30']['change']
+    day90_trend = data['item']['day90']['trend']
+    day90_change = data['item']['day90']['change']
+    day180_trend = data['item']['day180']['trend']
+    day180_change = data['item']['day180']['change']
+    primary_key = create_detail_key(id)
+
+    # another column to add into the covid_data table in the database
+    # this is the time that a json is extracted and placed into a database 
+    time_extracted = datetime.datetime.now().strftime("%y%m%d%H%M")
+
+    # return extracted keys
+    return (
+        primary_key,
+        item_id, 
+        type, 
+        name, 
+        description, 
+        current_trend,
+        current_price, 
+        today_trend,
+        today_price, 
+        members, 
+        day30_trend, 
+        day30_change, 
+        day90_trend, 
+        day90_change,
+        day180_trend, 
+        day180_change 
+    )
+
+def log_id(
+    id:str,
+    index:int
+) -> None:
+   
+   """
+   Log each row insertion into database for debugging purposes.
+
+   Parameters:
+   id (str): Hash id of raw json file passed into bulk_process_json
+   index (int): An index to track how many rows have been inserted (1-indexing for convenience)
+   """
+   
+   # keep track of hash id in case of debugging needs
+   logging.basicConfig(format="%(asctime)s - %(message)s",level=logging.INFO)
+   logging.info(f'id: {id} inserted into details table on id column |{index}')
+
+
+
