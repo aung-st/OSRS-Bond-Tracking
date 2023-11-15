@@ -72,7 +72,6 @@ def extract_row_tuple_details(
     """
 
     # extract all keys from 1 dictionary entry
-    print(data)
     item_id = data['item']['id']
     type = data['item']['type']
     name = data['item']['name']
@@ -89,10 +88,6 @@ def extract_row_tuple_details(
     day180_trend = data['item']['day180']['trend']
     day180_change = data['item']['day180']['change']
     primary_key = create_detail_key(id)
-
-    # another column to add into the covid_data table in the database
-    # this is the time that a json is extracted and placed into a database 
-    time_extracted = datetime.datetime.now().strftime("%y%m%d%H%M")
 
     # return extracted keys
     return (
@@ -131,5 +126,24 @@ def log_id(
    logging.basicConfig(format="%(asctime)s - %(message)s",level=logging.INFO)
    logging.info(f'id: {id} inserted into details table on id column |{index}')
 
+def bulk_process_detail_json(
+  database:str,
+  raw_json:dict,
+  id:str
+) -> None:
+    
+    """
+    Add a row json entries into a database 
+
+    Parameters:
+    database (str): Database name 
+    raw_json (dict): Raw json response fetched from API call
+    id (str): Hash id of raw json file
+    """
+  
+    data = extract_row_tuple_details(raw_json,id)
+
+    # add all values of a row into the details table
+    bulk_add_details(database,data)
 
 
