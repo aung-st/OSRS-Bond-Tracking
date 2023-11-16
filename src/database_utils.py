@@ -202,6 +202,7 @@ def bulk_add_five_minute_averages(
 
     # sqlite query to be inserted into the execution sequence
     connection.cursor().execute(f"""
+                                INSERT INTO five_minute_averages (
                                 uuid,
                                 average_high_price,
                                 high_price_volume,
