@@ -82,3 +82,27 @@ def test_graph_json_is_dumped():
 
     # check that a file exists with the hash id extracted above
     assert id in file
+
+def test_five_minute_average_json_is_dumped():
+
+    # test file path for json five minute average
+    json_path = "data/test_json_dump/five_minute_averages/"
+    raw_json = get_data_five_minute_average()
+
+    id_length = 4
+
+    # create filename and fetch id 
+    filename,id = create_filename(json_path,id_length)
+
+    # dump json file
+    dump_json(raw_json,filename)
+
+    filepath = os.listdir(json_path)
+
+    for f in filepath:
+        if id in f:
+            file = f
+            break
+
+    # check that a file exists with the hash id extracted above
+    assert id in file
