@@ -158,6 +158,30 @@ def bulk_add_graphs(
     
     connection.commit()
 
+def create_five_minute_averages_table(database:str) -> None:
+    """
+    Creates a table to store information from the json graphs.
+
+    Parameters:
+    database (str): Name of database where the table is inserted
+    """
+    connection = connect(
+        host="localhost",
+        user="root",
+        password=get_password(),
+        database=database
+        ) 
+
+    connection.cursor().execute(f"""
+                                CREATE TABLE IF NOT EXISTS five_minute_averages (
+                                uuid varchar(255) PRIMARY KEY,
+                                average_high_price int,
+                                high_price_volume int,
+                                average_low_price int,
+                                low_price_volume
+                                );
+                                """)
+
 def list_databases() -> None:
     """
     list all created MySQL databases and print them.
