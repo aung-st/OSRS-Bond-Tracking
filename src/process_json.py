@@ -278,5 +278,5 @@ def bulk_process_five_minute_average_json(
 
     # add all values of a row into the details table
     bulk_add_graphs(data,database)
-    log_id(row,"five minute averages")
+    log_id(data[0],"five minute averages")
 
