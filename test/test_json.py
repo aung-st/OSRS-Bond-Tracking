@@ -61,7 +61,7 @@ def test_detail_json_is_dumped():
 
 def test_graph_json_is_dumped():
 
-    # test file path for json details
+    # test file path for json graph
     json_path = "data/test_json_dump/graphs/"
     raw_json = get_data_graph()
 
