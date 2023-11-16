@@ -109,6 +109,42 @@ def extract_row_tuple_details(
         day180_change 
     )
 
+def extract_list_tuple_graphs(
+    data:dict,
+    id:str
+) -> list:
+    """
+    Extract all keys and values from a graphs json as a list of 4-tuples.
+
+    Parameters:
+    data (dict): A raw json file
+    id (str): Hash id of raw json file in the first argument
+
+    Returns:
+    graph_values (list): a list of 4-tuples containing the first sale price and 30 day average at a given timestamp
+    in the order (primary key, timestamp, first sale price, 30 day average) for each tuple
+    """
+
+    # split data into daily and average keys to make extracting values easier
+    daily = data['daily']
+    average = data['average']
+    
+    # extract all timestamps by getting the keys of either daily or average
+    # picking either is okay as the timestamps are in line with eachother
+    timestamps = list(daily.keys())
+    first_sale_prices = list(daily.values())
+    average_30_days = list(average.values())
+
+    graph_values = []
+
+    # place all values into a list of tuples with the addition of a primary key 
+    for timestamp in range(180):
+        primary_key = create_graph_key(id,timestamps[timestamp])
+        graph_values.append((primary_key,timestamps[timestamp],first_sale_prices[timestamp],average_30_days[timestamp]))
+    
+    # return extracted keys
+    return graph_values
+
 def log_id(
     id:str,
 ) -> None:
