@@ -185,12 +185,14 @@ def extract_row_tuple_five_minute_average(
     ) (tuple): A 5-tuple to be used in bulk_process_json
     """
     
+    # extract all values from json keys and generate primary key
     primary_key = create_five_minute_average_key(id)
     average_high_price = data['avgHighPrice']
     high_price_volume = data['highPriceVolume']
     average_low_price = data['avgLowPrice']
     low_price_volume = data['lowPriceVolume']
 
+    # return 5-tuple for later insertion into database table
     return (
         primary_key,
         average_high_price,
