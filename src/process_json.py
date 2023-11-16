@@ -147,6 +147,7 @@ def extract_list_tuple_graphs(
 
 def log_id(
     id:str,
+    table:str
 ) -> None:
    
    """
@@ -154,11 +155,12 @@ def log_id(
 
    Parameters:
    id (str): Hash id of raw json file passed into bulk_process_json
+   table (str): Table name where json entries will be inserted
    """
    
    # keep track of hash id in case of debugging needs
    logging.basicConfig(format="%(asctime)s - %(message)s",level=logging.INFO)
-   logging.info(f'id: {id} inserted into details table')
+   logging.info(f'id: {id} inserted into {table} table')
 
 def bulk_process_detail_json(
   database:str,
@@ -180,7 +182,7 @@ def bulk_process_detail_json(
     # add all values of a row into the details table
     bulk_add_details(data,database)
 
-    log_id(data[0])
+    log_id(data[0],"details")
 
 def bulk_process_graph_json(
         database:str,
@@ -201,5 +203,4 @@ def bulk_process_graph_json(
     
     for row in data:
         bulk_add_graphs(row,database)
-
-    log_id(data[0])
+        log_id(row,"graphs")
