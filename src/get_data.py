@@ -33,7 +33,7 @@ def get_data_details() -> dict:
   # return response data
   return data
 
-def get_five_minute_average() -> dict:
+def get_data_five_minute_average() -> dict:
   """
   Get data on price averages and volume of sales of Grand Exchange items in the past 5 minutes of sales.
   
