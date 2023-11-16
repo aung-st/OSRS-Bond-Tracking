@@ -1,4 +1,4 @@
-from database_utils import bulk_add_details
+from database_utils import bulk_add_details,bulk_add_graphs
 import datetime
 import logging
 
@@ -167,7 +167,7 @@ def bulk_process_detail_json(
 ) -> None:
     
     """
-    Add a row json entries into a database 
+    Add a row of json entries into a database 
 
     Parameters:
     database (str): Database name 
@@ -181,4 +181,25 @@ def bulk_process_detail_json(
     bulk_add_details(data,database)
 
     log_id(data[0])
-      
+
+def bulk_process_graph_json(
+        database:str,
+        raw_json:dict,
+        id:str
+) -> None:
+    """
+    Add 180 rows of json entries into a database 
+
+    Parameters:
+    database (str): Database name 
+    raw_json (dict): Raw json response fetched from API call
+    id (str): Hash id of raw json file
+    """
+    data = extract_list_tuple_graphs(raw_json,id)
+
+    # add all values of a row into the details table
+    
+    for row in data:
+        bulk_add_graphs(row,database)
+
+    log_id(data[0])
