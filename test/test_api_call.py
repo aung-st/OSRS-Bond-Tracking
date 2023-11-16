@@ -20,7 +20,6 @@ def test_data_graph_is_correct():
     assert len(get_data_graph()['daily']) == 180
     assert len(get_data_graph()['average']) == 180
 
-
 def test_data_five_minute_average_is_correct():
     assert len(get_data_five_minute_average()['data']['13190']) == 4
     assert len(get_data_five_minute_average()) == 2
