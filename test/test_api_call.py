@@ -8,6 +8,9 @@ def test_data_details_is_fetched():
 def test_data_graph_is_fetched():
     assert isinstance(get_data_graph(),dict) 
 
+def test_data_five_minute_average_is_fetched():
+    assert isinstance(get_data_five_minute_average(),dict)
+
 def test_data_details_is_correct():
     assert len(get_data_details()) == 1
     assert len(get_data_details()['item']) == 13
