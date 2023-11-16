@@ -178,9 +178,40 @@ def create_five_minute_averages_table(database:str) -> None:
                                 average_high_price int,
                                 high_price_volume int,
                                 average_low_price int,
-                                low_price_volume
+                                low_price_volume int
                                 );
                                 """)
+    
+def bulk_add_five_minute_averages(
+    data:tuple,
+    database:str
+) -> None:
+    """
+    Adds entries from a raw json file into the five minute averages table of a database specified in the parameters. 
+
+    Parameters:
+    data (tuple): json file content collated into a tuple to be inserted into five minute averages table
+    database (str): Name of database that will be used to insert into the five minute averages table
+    """
+    connection = connect(
+    host="localhost",
+    user="root",
+    password=get_password(),
+    database=database
+    ) 
+
+    # sqlite query to be inserted into the execution sequence
+    connection.cursor().execute(f"""
+                                uuid,
+                                average_high_price,
+                                high_price_volume,
+                                average_low_price,
+                                low_price_volume
+                                )
+                                VALUES(%s,%s,%s,%s,%s)
+                                ;""",data)
+    
+    connection.commit()
 
 def list_databases() -> None:
     """
