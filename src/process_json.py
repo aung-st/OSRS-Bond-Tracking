@@ -1,4 +1,4 @@
-from database_utils import bulk_add_details,bulk_add_graphs
+from database_utils import bulk_add_details,bulk_add_graphs,bulk_add_five_minute_averages
 import datetime
 import logging
 
@@ -274,9 +274,9 @@ def bulk_process_five_minute_average_json(
     raw_json (dict): Raw json response fetched from API call
     id (str): Hash id of raw json file
     """
-    data = extract_list_tuple_graphs(raw_json,id)
+    data = extract_row_tuple_five_minute_average(raw_json,id)
 
     # add all values of a row into the details table
-    bulk_add_graphs(data,database)
+    bulk_add_five_minute_averages(data,database)
     log_id(data[0],"five minute averages")
 
