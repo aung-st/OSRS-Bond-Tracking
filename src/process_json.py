@@ -20,6 +20,25 @@ def create_detail_key(
     
     return id+'-'+time_extracted
 
+def create_five_minute_average_key(
+    id:str,
+    time_extracted:str = datetime.datetime.now().strftime("%y%m%d%H%M")
+) -> str:
+    """
+    Generate an n-character hash key + a timestamp in milliseconds seperated by a '-' character to be used as primary key
+    for the five minute averages table.
+
+    Parameters:
+    id (str): Hash id of json file
+    timestamp (str): datetime extraction of json contents in YYMMDDHHmm form
+
+    Returns:
+    id+'-'+time_extracted (str): A string concatenation to be used as a primary key in a database
+    """
+    
+    return id+'-'+time_extracted
+
+
 def create_graph_key(
     id:str,
     timestamp:str,
@@ -144,6 +163,41 @@ def extract_list_tuple_graphs(
     
     # return extracted keys
     return graph_values
+
+def extract_row_tuple_five_minute_average(
+    data:dict,
+    id:str
+) -> tuple:
+    """
+    Extract all keys from a single dictionary entry and return it as a 5-tuple.
+
+    Parameters:
+    data (dict): A raw json file
+    id (str): Hash id of raw json file in the first argument
+
+    Returns:
+    (
+        primary_key,
+        average_high_price,
+        high_price_volume,
+        average_low_price,
+        low_price_volume
+    ) (tuple): A 5-tuple to be used in bulk_process_json
+    """
+    
+    primary_key = create_five_minute_average_key(id)
+    average_high_price = data['avgHighPrice']
+    high_price_volume = data['highPriceVolume']
+    average_low_price = data['avgLowPrice']
+    low_price_volume = data['lowPriceVolume']
+
+    return (
+        primary_key,
+        average_high_price,
+        high_price_volume,
+        average_low_price,
+        low_price_volume
+    )
 
 def log_id(
     id:str,
