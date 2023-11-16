@@ -1,5 +1,5 @@
 from src.dump_json import dump_json, create_filename, create_id
-from src.get_data import get_data_details, get_data_graph
+from src.get_data import get_data_details, get_data_graph, get_data_five_minute_average
 import os 
 
 def test_id_is_created():
@@ -20,6 +20,15 @@ def test_details_filename_is_created():
 def test_graphs_filename_is_created():
 
     json_path = "data/test_json_dump/graphs"
+    id_length = 4
+
+    filename,id = create_filename(json_path,id_length)
+    
+    assert isinstance(create_filename(json_path,id_length),tuple) and isinstance(filename,str) and isinstance(id,str)
+
+def test_five_minute_average_filename_is_created():
+
+    json_path = "data/test_json_dump/five_minute_averages"
     id_length = 4
 
     filename,id = create_filename(json_path,id_length)
