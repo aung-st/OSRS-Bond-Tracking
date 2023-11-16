@@ -260,3 +260,23 @@ def bulk_process_graph_json(
     for row in data:
         bulk_add_graphs(row,database)
         log_id(row,"graphs")
+
+def bulk_process_five_minute_average_json(
+        database:str,
+        raw_json:dict,
+        id:str
+) -> None:
+    """
+    Add a rows of json entries into a database 
+
+    Parameters:
+    database (str): Database name 
+    raw_json (dict): Raw json response fetched from API call
+    id (str): Hash id of raw json file
+    """
+    data = extract_list_tuple_graphs(raw_json,id)
+
+    # add all values of a row into the details table
+    bulk_add_graphs(data,database)
+    log_id(row,"five minute averages")
+
