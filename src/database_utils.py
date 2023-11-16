@@ -119,13 +119,44 @@ def create_graphs_table(database:str) -> None:
         ) 
 
     connection.cursor().execute(f"""
-                                CREATE TABLE IF NOT EXISTS details (
+                                CREATE TABLE IF NOT EXISTS graphs (
                                 uuid varchar(255) PRIMARY KEY,
                                 timestamp varchar(255),
                                 first_sale_price int,
                                 30_day_average int
                                 );
                                 """)
+    
+def bulk_add_graphs(
+    data:tuple,
+    database:str
+) -> None:
+    """
+    Adds entries from a raw json file into the graphs table of a database specified in the parameters. 
+
+    Parameters:
+    data (tuple): json file content collated into a tuple to be inserted into graphs table
+    database (str): Name of database that will be used to insert into the graphs table
+    """
+    connection = connect(
+    host="localhost",
+    user="root",
+    password=get_password(),
+    database=database
+    ) 
+
+    # sqlite query to be inserted into the execution sequence
+    connection.cursor().execute(f"""
+                                INSERT INTO graphs(
+                                uuid,
+                                timestamp,
+                                first_sale_price,
+                                30_day_average
+                                )
+                                VALUES(%s,%s,%s,%s)
+                                ;""",data)
+    
+    connection.commit()
 
 def list_databases() -> None:
     """
