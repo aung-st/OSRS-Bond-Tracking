@@ -54,7 +54,7 @@ def test_graph_json_is_dumped():
 
     # test file path for json details
     json_path = "data/test_json_dump/graphs/"
-    raw_json = get_data_details()
+    raw_json = get_data_graph()
 
     id_length = 4
 
