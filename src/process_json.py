@@ -279,4 +279,3 @@ def bulk_process_five_minute_average_json(
     # add all values of a row into the details table
     bulk_add_five_minute_averages(data,database)
     log_id(data[0],"five minute averages")
-
