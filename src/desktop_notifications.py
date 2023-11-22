@@ -17,12 +17,12 @@ def notify(
     average_low_price = five_minute_average_raw_json['avgLowPrice']
 
     if average_high_price < threshold:
-        message = f'Average high prices for bonds are at {average_high_price}. Below defined threshold {threshold}!'
+        message = f'Average high prices for bonds are at {average_high_price}. Below defined threshold of {threshold}!'
     else:
-        message = f'Average low prices for bonds are at {average_low_price}. Below defined threshold {threshold}!'
+        message = f'Average low prices for bonds are at {average_low_price}. Below defined threshold of {threshold}!'
 
     notification.notify(
-        title='Dip in Old School Bond Prices!',
+        title='Hurry to the Grand Exchange!',
         message= message,
         app_icon=None,  
         timeout=10  # In seconds
