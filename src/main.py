@@ -9,7 +9,7 @@ import time
 if __name__ == "__main__":
 
     # how long the program runs for in seconds
-    time_end = time.time() + 20
+    time_end = time.time() + 3600 # run for an hour
     
     while time.time() < time_end:
         
@@ -33,13 +33,19 @@ if __name__ == "__main__":
 
         # add data to database
         bulk_process_five_minute_average_json('osrs_db',five_minute_average_raw_json,five_minute_averages_id)
-
+        
         # give notification if price is under threshold 
-        if five_minute_average_raw_json['avgHighPrice'] < threshold or five_minute_average_raw_json['avgLowPrice'] < threshold:
+        # volume is in the condition as 0 volume means NULL price as there were no sales 
+       
+        if  five_minute_average_raw_json['highPriceVolume'] != 0 and five_minute_average_raw_json['avgHighPrice'] < threshold: 
             notify(five_minute_average_raw_json,threshold)
+        elif  five_minute_average_raw_json['lowPriceVolume'] != 0 and five_minute_average_raw_json['avgLowPrice'] < threshold: 
+            notify(five_minute_average_raw_json,threshold)
+
+
         
         # pause execution to avoid spamming API calls
-        time.sleep(5)
+        time.sleep(300)
 
 
 
