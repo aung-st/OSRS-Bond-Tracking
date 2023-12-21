@@ -35,7 +35,8 @@ def get_data_details() -> dict:
 
 def get_data_five_minute_average() -> dict:
   """
-  Get data on price averages and volume of sales of Grand Exchange items in the past 5 minutes of sales.
+  Get data on price averages and volume of sales of Grand Exchange items in the past 5 minutes of sales. 
+  Sometimes the high or low price average volumes may be 0 and as a result the price will be null.
   
   Returns:
   A dictionary of 5 minute high and low average prices and volumes for all items on the Grand Exchange.
@@ -48,4 +49,3 @@ def get_data_five_minute_average() -> dict:
 
   # return response data
   return data
-
